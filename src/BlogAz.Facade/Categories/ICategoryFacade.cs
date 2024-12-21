@@ -12,6 +12,9 @@ namespace BlogAz.Facade.Categories
         Task<OperationResult> EditCategoryAsync(EditCategoryCommand command);
         Task<OperationResult> DeleteCategoryAsync(DeleteCategoryCommand command);
         Task<List<CategoryDto>> GetAllCategoriesAsync();
+        Task<List<CategoryDto>> GetMainCategoriesAsync();
+        Task<List<CategoryDto>> GetCategoriesForComboBoxAsync();
+        Task<List<CategoryDto>> GetCategoriesByParentIdAsync(long id);
         Task<CategoryDto> GetCategoryByIdAsync(long id);
     }
 }

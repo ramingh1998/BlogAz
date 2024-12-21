@@ -11,8 +11,9 @@ namespace BlogAz.Application.Commands.Blogs.Delete
         private readonly IBlogCategoryRepository _blogCategoryRepository;
         private readonly ILocalFileService _localFileService;
 
-        public DeleteBlogCommandHandler(IBlogCategoryRepository blogCategoryRepository, ILocalFileService localFileService)
+        public DeleteBlogCommandHandler(IBlogRepository blogRepository, IBlogCategoryRepository blogCategoryRepository, ILocalFileService localFileService)
         {
+            _blogRepository = blogRepository;
             _blogCategoryRepository = blogCategoryRepository;
             _localFileService = localFileService;
         }

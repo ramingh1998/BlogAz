@@ -3,7 +3,10 @@ using BlogAz.Application.Commands.Categories.Delete;
 using BlogAz.Application.Commands.Categories.Edit;
 using BlogAz.Application.DTOs.Categories;
 using BlogAz.Application.Queries.Categories.GetById;
+using BlogAz.Application.Queries.Categories.GetByParentId;
+using BlogAz.Application.Queries.Categories.GetForComboBox;
 using BlogAz.Application.Queries.Categories.GetList;
+using BlogAz.Application.Queries.Categories.GetMain;
 using Common.Application;
 using MediatR;
 
@@ -38,9 +41,24 @@ namespace BlogAz.Facade.Categories
             return await _mediator.Send(new GetAllCategoriesQuery());
         }
 
+        public async Task<List<CategoryDto>> GetCategoriesByParentIdAsync(long id)
+        {
+            return await _mediator.Send(new GetCategoriesByParentIdQuery(id));
+        }
+
+        public async Task<List<CategoryDto>> GetCategoriesForComboBoxAsync()
+        {
+            return await _mediator.Send(new GetAllCategoriesForComboBoxQuery());
+        }
+
         public async Task<CategoryDto> GetCategoryByIdAsync(long id)
         {
             return await _mediator.Send(new GetCategoryByIdQuery(id));
+        }
+
+        public async Task<List<CategoryDto>> GetMainCategoriesAsync()
+        {
+            return await _mediator.Send(new GetMainCategoriesQuery());
         }
     }
 }

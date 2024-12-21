@@ -13,7 +13,7 @@ namespace BlogAz.Infrastructure.EntityConfigurations.Blogs
             builder.HasKey(q => q.Id);
 
             builder.Property(q => q.Title).IsRequired().HasMaxLength(60);
-            builder.Property(q => q.Content).IsRequired().HasMaxLength(600);
+            builder.Property(q => q.Content).IsRequired().HasColumnType("NVARCHAR(MAX)");
             builder.Property(q => q.ImageName).IsRequired().HasMaxLength(300);
             builder.Property(q => q.CreatedAt).HasColumnType("datetime");
             builder.Property(q => q.UpdatedAt).HasColumnType("datetime");

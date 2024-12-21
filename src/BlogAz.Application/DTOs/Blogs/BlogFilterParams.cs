@@ -10,5 +10,7 @@ namespace BlogAz.Application.DTOs.Blogs
     public class BlogFilterParams : BaseFilterParam
     {
         public string Title { get; set; }
+        public long? CategoryId { get; set; }
+        public long? LastSubCategoryId { get; set; }
     }
 }

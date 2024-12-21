@@ -31,7 +31,7 @@ namespace BlogAz.Application.Commands.Blogs.Add
                 return OperationResult.Error("Bu adla başqa bir bloq mövcuddur.");
             }
 
-            var imageName = await _localFileService.SaveFileAndGenerateName(request.ImageName, BlogDirectories.BlogImage);
+            var imageName = await _localFileService.SaveFileAndGenerateName(request.ImageFile, BlogDirectories.BlogImage);
             var content = request.Content.SanitizeText();
             var blog = new Blog
             {
@@ -41,20 +41,20 @@ namespace BlogAz.Application.Commands.Blogs.Add
                 CreatedAt = DateTime.Now
             };
             _blogRepository.Add(blog);
-            if (request.CategoryIds != null && request.CategoryIds.Any())
-            {
-                var finalCategoryIds = await _categoryRepository.GetFinalSubCategoryIdAsync(request.CategoryIds);
-                foreach (var categoryId in finalCategoryIds)
-                {
-                    var blogCategory = new BlogCategory
-                    {
-                        Blog = blog,
-                        CategoryId = categoryId
-                    };
-                    _blogCategoryRepository.Add(blogCategory);
-                }
-            }
             await _blogRepository.Save();
+
+            var blogCategories = new List<BlogCategory>();
+            foreach (var item in request.CategoryIds)
+            {
+                var blogCategory = new BlogCategory
+                {
+                    BlogId = blog.Id,
+                    CategoryId = item
+                };
+                blogCategories.Add(blogCategory);
+            }
+            _blogCategoryRepository.AddRange(blogCategories);
+            await _blogCategoryRepository.Save();
             return OperationResult.Success();
         }
     }

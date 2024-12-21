@@ -38,11 +38,11 @@ namespace BlogAz.Application.Commands.Blogs.Edit
                     return OperationResult.Error("Bu adla başqa bir bloq mövcuddur.");
                 }
             }
-            if (request.ImageName != null)
+            if (request.ImageFile != null)
             {
                 _localFileService.DeleteFile(blog.ImageName, BlogDirectories.BlogImage);
 
-                blog.ImageName = await _localFileService.SaveFileAndGenerateName(request.ImageName, BlogDirectories.BlogImage);
+                blog.ImageName = await _localFileService.SaveFileAndGenerateName(request.ImageFile, BlogDirectories.BlogImage);
             }
             blog.Title = request.Title;
             blog.Content = request.Content.SanitizeText();

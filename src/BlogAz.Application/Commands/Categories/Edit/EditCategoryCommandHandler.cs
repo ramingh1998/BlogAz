@@ -27,8 +27,8 @@ namespace BlogAz.Application.Commands.Categories.Edit
                 }
             }
             category.Name = request.Name;
-            category.ParentId = request.ParentId;
             _categoryRepository.Update(category);
+            await _categoryRepository.Save();
             return OperationResult.Success();
         }
     }

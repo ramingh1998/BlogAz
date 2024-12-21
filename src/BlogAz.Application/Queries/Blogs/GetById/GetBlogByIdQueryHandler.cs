@@ -37,7 +37,7 @@ namespace BlogAz.Application.Queries.Blogs.GetById
                 Content = blog.Content,
                 ImageName = blog.ImageName,
                 CreatedAt = blog.CreatedAt,
-                UpdatedAt = blog.UpdatedAt.Value,
+                UpdatedAt = blog.UpdatedAt,
                 Categories = categories.Where(q => q.BlogId == blog.Id).Select(q => new CategoryDto
                 {
                     CreatedAt = q.CreatedAt,

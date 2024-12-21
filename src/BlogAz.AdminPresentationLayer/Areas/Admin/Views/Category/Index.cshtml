@@ -8,7 +8,7 @@
 @section Styles {
 	<link rel="stylesheet" href="~/admin/assets/global/categoryStyle.css">
 }
-
+<button class="btn btn-success" data-bs-toggle="modal" data-toggle='modal' data-target='#addSubCategoryModal'>Kateqoriya əlavə et</button>
 <div class="md:p-7 p-5 bg-white rounded-md shadow-lg lg:mt-10 mt-6">
 	@RenderCategories(Model)
 </div>
@@ -24,9 +24,9 @@
 			html.Append($"<span class='category'>{category.Name}</span>");
 
 			html.Append("<div class='action-buttons'>");
-			html.Append($"<a href='javascript:void(0);' class='add-subcategory-btn' data-id='{category.Id}' data-toggle='modal' data-target='#addSubCategoryModal'><i class='fas fa-plus'></i>Əlavə et</a>");
-			html.Append($"<a href='{Url.Action("Edit", "Category", new { area = "Admin", id = category.Id })}' class='edit-btn'><i class='fas fa-edit'></i>Düzəliş et</a>");
-			html.Append("<button class='delete-btn' data-id='" + category.Id + "' onClick='deleteCategory(" + category.Id + ")'><i class='fas fa-trash'></i>Sil</button>");
+			html.Append($"<a href='javascript:void(0);' class='add-subcategory-btn btn-sm' data-id='{category.Id}' data-toggle='modal' data-target='#addSubCategoryModal'><i class='fas fa-plus'></i>Əlavə et</a>");
+			html.Append($"<a href='/Admin/Category/Edit/{category.Id}' class='edit-btn btn-sm'><i class='fas fa-edit'></i>Düzəliş et</a>");
+			html.Append("<button class='delete-btn btn-sm' data-id='" + category.Id + "' onClick='deleteCategory(" + category.Id + ")'><i class='fas fa-trash'></i>Sil</button>");
 			html.Append("</div>");
 
 			html.Append("</div>");
@@ -65,6 +65,28 @@
 	</div>
 </div>
 
+<div class="modal fade" id="edit" tabindex="-1" aria-labelledby="editCategory" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Kateqoriyaya Düzəliş et</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-warning" id="editCategory">Düzəliş et</button>
+				<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">Bağla</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 @section Scripts {
 	<script src="~/admin/assets/global/global.js"></script>
 }
+<script type="text/javascript">
+	
+
+</script>

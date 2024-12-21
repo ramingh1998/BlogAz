@@ -30,6 +30,50 @@
 	});
 }
 
+function deleteBlog(id) {
+	Swal.fire({
+		title: 'Bu bloğu silmək istəyirsiniz?',
+		text: "Bu əməliyyat geri alına bilməz!",
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonText: 'Bəli, sil!',
+		cancelButtonText: 'İmtina et!',
+		reverseButtons: true
+	}).then((result) => {
+		if (result.isConfirmed) {
+			$.ajax({
+				url: '/Admin/Blog/Delete',
+				type: 'POST',
+				data: { id: id },
+				success: function (response) {
+					if (response.status == 200) {
+						Swal.fire({
+							title: 'Əməliyyat uğurlu oldu',
+							text: 'Blog uğurla silindi.',
+							icon: 'success',
+							confirmButtonText: 'Tamam'
+						}).then(function (result) {
+							location.reload();
+						});
+					} else {
+						Swal.fire({
+							title: 'Xəta',
+							text: 'Blog Silinərkən xəta baş verdi.',
+							icon: 'error',
+							confirmButtonText: 'Bəli'
+						}).then(function (result) {
+							location.reload();
+						});
+					}
+				},
+				error: function () {
+					Swal.fire('Xəta!', 'Sorğu göndərilməsində problem yarandı.', 'error');
+				}
+			});
+		}
+	});
+}
+
 $(document).ready(function () {
 	var parentId = null;
 
@@ -42,14 +86,13 @@ $(document).ready(function () {
 
 		if (title.trim() !== "") {
 			$.ajax({
-				url: '/Admin/Category/AddSubCategory',
+				url: '/Admin/Category/AddCategory',
 				type: 'POST',
 				data: {
 					title: title,
 					parentId: parentId
 				},
 				success: function (response) {
-					console.log(response)
 					if (response.status == 200) {
 						Swal.fire({
 							title: 'Əməliyyat uğurlu oldu',
@@ -91,3 +134,67 @@ $(document).ready(function () {
 		}
 	});
 });
+
+
+$(document).on('click', '.edit-btn', function (e) {
+	e.preventDefault();
+	var url = $(this).attr('href'); // URL اکشن
+
+	$.ajax({
+		url: url,
+		method: 'GET',
+		success: function (response) {
+			$('#edit .modal-body').html(response); // داده‌ها را درون modal-body قرار دهید
+			$('#edit').modal('show'); // مودال را نمایش دهید
+		},
+		error: function () {
+			alert("Xəta baş verdi. Zəhmət olmasa yenidən cəhd edin.");
+		}
+	});
+});
+
+$(document).on('click', '#editCategory', function () {
+	var formData = {
+		id: $('#categoryTitle').data('id'),
+		name: $('#categoryTitle').val()
+	};
+
+	$.ajax({
+		url: '/Admin/Category/Edit',
+		method: 'POST',
+		data: JSON.stringify(formData),
+		contentType: 'application/json',
+		success: function (response) {
+			if (response.status == 200) {
+				Swal.fire({
+					title: 'Əməliyyat uğurlu oldu',
+					text: 'Dəyişikliklər uğurla tətbiq edildi.',
+					icon: 'success',
+					confirmButtonText: 'Tamam'
+				}).then(function (result) {
+					location.reload();
+				});
+			} else {
+				Swal.fire({
+					title: 'Xəta',
+					text: 'Xəta baş verdi.',
+					icon: 'error',
+					confirmButtonText: 'Bəli'
+				}).then(function (result) {
+					location.reload();
+				});
+			}
+		},
+		error: function () {
+			Swal.fire({
+				title: 'Xəta',
+				text: 'Server ilə əlaqə qurularkən xəta baş verdi.',
+				icon: 'error',
+				confirmButtonText: 'Bəli'
+			}).then(function (result) {
+				location.reload();
+			});
+		}
+	});
+});
+

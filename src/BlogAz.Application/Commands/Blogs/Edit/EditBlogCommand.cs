@@ -7,7 +7,7 @@ namespace BlogAz.Application.Commands.Blogs.Edit
     {
         public long Id { get; set; }
         public string Title { get; set; }
-        public IFormFile? ImageName { get; set; }
+        public IFormFile? ImageFile { get; set; }
         public string Content { get; set; }
         public List<long> CategoryIds { get; set; }
     }

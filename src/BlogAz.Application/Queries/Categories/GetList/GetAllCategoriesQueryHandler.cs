@@ -22,11 +22,11 @@ namespace BlogAz.Application.Queries.Categories.GetList
         public async Task<List<CategoryDto>> Handle(GetAllCategoriesQuery request, CancellationToken cancellationToken)
         {
             var categories = await _categoryRepository.ToListAsync();
-            var categoryDtos = BuildHierarchy(categories, null);
+            var categoryDtos = BuildHierarchy(categories);
             return categoryDtos;
         }
 
-        private List<CategoryDto> BuildHierarchy(List<Category> categories, long? parentId)
+        private List<CategoryDto> BuildHierarchy(List<Category> categories, long? parentId = null)
         {
             return categories.Where(c => c.ParentId == parentId).Select(c => new CategoryDto
             {

@@ -23,7 +23,6 @@
     <Folder Include="Commands\Users\Add\" />
     <Folder Include="Commands\Users\Delete\" />
     <Folder Include="Commands\Users\Edit\" />
-    <Folder Include="Queries\Categories\GetMain\" />
   </ItemGroup>
 
 </Project>
