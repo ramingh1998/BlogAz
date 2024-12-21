@@ -1,0 +1,41 @@
+﻿namespace Common.Application.Enums
+{
+    public enum FileFolder
+    {
+        Sliders,
+        Courses,
+        PersonalPic,
+        ExamQuestions,
+        Blogs,
+        Teacher,
+        Student,
+        UserRegisterForm,
+        FilePathQuestionAnswer,
+        SampleTutorials,
+        Flag,
+        University,
+        UniversityPics,
+        Facilities,
+        Products,
+        IndependentExams,
+        CourseMeetingBooklets,
+        CourseMeetingVideos,
+        HomeworkFiles,
+        HomeworkAnswerFiles,
+        Videos,
+        CourseComments,
+        AcceptedStudentInEntranceExams,
+        HomePageNotifications,
+        Conferences,
+        ConferencePics,
+        EmploymentForms,
+        CoursePicDescriptions,
+        ConferenceCovers,
+        Podcasts,
+        learners,
+        Banners,
+        CourseStudentQuestions,
+        AudioCourseStudentQuestions,
+        AccountingTrainingeHomePage
+    }
+}
