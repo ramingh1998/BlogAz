@@ -34,7 +34,7 @@
 
 			<div class="form-group">
 				<label for="content">📜 Bloq Məzmunu</label>
-				<textarea id="content" asp-for="Content" rows="5" class="form-control" placeholder="Bloq məzmununu daxil edin"></textarea>
+				<textarea id="content" asp-for="Content" rows="5" class="form-control" placeholder="Bloq məzmununu daxil edin" style="width: 100%; height: 300px;"></textarea>
 				<span class="text-danger" asp-validation-for="Content"></span>
 			</div>
 			<div class="form-group">
@@ -133,15 +133,19 @@
 	});
 	document.addEventListener('DOMContentLoaded', function () {
 		let editorInstance;
-		ClassicEditor.create(document.querySelector('#content'))
-			.then(editor => {
-				editorInstance = editor;
-			})
-			.catch(error => {
-				console.error(error);
-			});
+		ClassicEditor.create(document.querySelector('#content'), {
+		toolbar: ['heading', '|', 'bold', 'italic', 'link', '|', 'bulletedList', 'numberedList', '|', 'blockQuote'],
+		editable: {
+			width: '100%',
+			height: '300px'
+		}
+	}).then(editor => {
+		editorInstance = editor;
+	}).catch(error => {
+		console.error(error);
+	});
 
-		document.querySelector("#blogForm").addEventListener("submit", function (e) {
+	document.querySelector("#blogForm").addEventListener("submit", function (e) {
 			document.querySelector('#content').value = editorInstance.getData();
 		});
 	});
