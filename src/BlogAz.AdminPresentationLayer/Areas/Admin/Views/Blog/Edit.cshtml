@@ -115,23 +115,21 @@
 			var formData = new FormData(form);
 			formData.set('Content', editorInstance.getData());
 			$.ajax({
-				url: $(this).attr('action'), // مسیر درخواست
+				url: $(this).attr('action'),
 				type: 'POST',
 				data: formData,
-				processData: false, // برای ارسال فایل‌ها باید این رو false قرار بدیم
-				contentType: false, // برای ارسال فایل‌ها باید این رو false قرار بدیم
+				processData: false,
+				contentType: false,
 				success: function (response) {
 					if (response.status == 200) {
-						// اگر موفق بود، پیغام موفقیت نمایش داده می‌شود
 						Swal.fire({
 							icon: 'success',
-							title: 'Bloq əlavə olundu!',
+								title: 'Blog düzəliş olundu!',
 							text: response.message
 						}).then(() => {
-							window.location.href = '/Admin/Blog/Index'; // به صفحه‌ی اصلی بروید
+							window.location.href = '/Admin/Blog/Index';
 						});
 					} else {
-						// اگر خطا بود، پیغام خطا نمایش داده می‌شود
 						Swal.fire({
 							icon: 'error',
 							title: 'Xəta baş verdi!',

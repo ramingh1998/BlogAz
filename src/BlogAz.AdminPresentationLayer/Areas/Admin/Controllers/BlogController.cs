@@ -96,6 +96,12 @@ namespace BlogAz.AdminPresentationLayer.Areas.Admin.Controllers
             return new JsonResult(result);
         }
 
+        public async Task<IActionResult> Details(long id)
+        {
+            var blog = await _blogFacade.GetBlogByIdAsync(id);
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> Delete(long id)
         {

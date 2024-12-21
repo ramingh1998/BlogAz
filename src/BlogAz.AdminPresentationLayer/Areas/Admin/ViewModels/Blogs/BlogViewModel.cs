@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using BlogAz.Application.DTOs.Categories;
 
 namespace BlogAz.AdminPresentationLayer.Areas.Admin.ViewModels.Blogs
 {
@@ -21,5 +22,7 @@ namespace BlogAz.AdminPresentationLayer.Areas.Admin.ViewModels.Blogs
         public List<long> CategoryIds { get; set; }
 
         public string ImageName { get; set; }
+
+        public List<CategoryDto> Categories { get; set; }
     }
 }

@@ -47,24 +47,26 @@ namespace BlogAz.Application.Commands.Blogs.Edit
             blog.Title = request.Title;
             blog.Content = request.Content.SanitizeText();
             blog.UpdatedAt = DateTime.Now;
+            await _blogRepository.Save();
 
+            var blogCategoryList = new List<BlogCategory>();
             if (request.CategoryIds != null && request.CategoryIds.Any())
             {
                 var blogCategories = await _blogCategoryRepository.GetBlogCategoriesByBlogIdAsync(request.Id);
                 _blogCategoryRepository.RemoveRange(blogCategories);
 
-                var finalCategoryIds = await _categoryRepository.GetFinalSubCategoryIdAsync(request.CategoryIds);
-                foreach (var categoryId in finalCategoryIds)
+                foreach (var item in request.CategoryIds)
                 {
                     var blogCategory = new BlogCategory
                     {
                         BlogId = blog.Id,
-                        CategoryId = categoryId
+                        CategoryId = item
                     };
-                    await _blogCategoryRepository.AddAsync(blogCategory);
+                    blogCategoryList.Add(blogCategory);
                 }
+                await _blogCategoryRepository.AddRange(blogCategoryList);
+                await _blogCategoryRepository.Save();
             }
-            await _blogRepository.Save();
             return OperationResult.Success();
         }
     }

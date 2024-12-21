@@ -53,7 +53,7 @@ namespace BlogAz.Application.Commands.Blogs.Add
                 };
                 blogCategories.Add(blogCategory);
             }
-            _blogCategoryRepository.AddRange(blogCategories);
+            await _blogCategoryRepository.AddRange(blogCategories);
             await _blogCategoryRepository.Save();
             return OperationResult.Success();
         }
