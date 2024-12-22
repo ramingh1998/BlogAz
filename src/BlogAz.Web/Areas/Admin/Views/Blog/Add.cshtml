@@ -31,10 +31,9 @@
                     </div>
                 </div>
             </div>
-
             <div class="form-group">
                 <label for="content">📜 Bloq Məzmunu</label>
-                <textarea id="content" asp-for="Content" rows="5" class="form-control" placeholder="Bloq məzmununu daxil edin" style="width: 100%; height: 300px;"></textarea>
+                <textarea id="content" asp-for="Content" rows="5" class="form-control" placeholder="Bloq məzmununu daxil edin"></textarea>
                 <span class="text-danger" asp-validation-for="Content"></span>
             </div>
             <div class="form-group">
@@ -42,7 +41,6 @@
                 <div id="categoryTreeContainer"></div>
                 <input type="hidden" id="selectedCategories" name="CategoryIds" />
             </div>
-
             <div class="form-group mt-4">
                 <div class="row">
                     <div class="col-6">
@@ -69,13 +67,6 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 }
 <script type="text/javascript">
-    // بازگرداندن محتوای CKEditor به textarea هنگام ارسال
-    document.querySelector("#blogForm").addEventListener("submit", function (e) {
-        // قبل از ارسال فرم، محتوای CKEditor را به textarea منتقل می‌کنیم
-        document.querySelector('#content').value = editorInstance.getData();
-    });
-
-    // پیش‌نمایش تصویر
     function previewImage(input) {
         const preview = document.getElementById('imagePreview');
         if (input.files && input.files[0]) {
@@ -89,81 +80,43 @@
         }
     }
 
-    // ایجاد درخت دسته‌بندی‌ها
     document.addEventListener('DOMContentLoaded', function () {
-        var categoryTreeData = @Html.Raw(ViewBag.CategoryTreeJson);
+        const categoryTreeData = @Html.Raw(ViewBag.CategoryTreeJson);
 
-        function buildCategoryTree(categories) {
-            var treeHtml = '';
-            categories.forEach(function (category) {
-                treeHtml += `
-                    <div>
-                        <label>
-                            <input type="checkbox" class="category-checkbox" value="${category.Id}" />
-                            ${category.Name}
-                        </label>
-                `;
-                if (category.SubCategories && category.SubCategories.length > 0) {
-                    treeHtml += `<div style="padding-left: 20px;">`;
-                    treeHtml += buildCategoryTree(category.SubCategories);
-                    treeHtml += `</div>`;
-                }
-                treeHtml += `</div>`;
-            });
-            return treeHtml;
-        }
-
-        document.getElementById('categoryTreeContainer').innerHTML = buildCategoryTree(categoryTreeData);
-
-        // ذخیره انتخاب‌ها در input hidden
-        const categoryCheckboxes = document.querySelectorAll('.category-checkbox');
+        const container = document.getElementById('categoryTreeContainer');
+        container.innerHTML = buildCategoryTree(categoryTreeData);
         const selectedCategoriesInput = document.getElementById('selectedCategories');
-
-        categoryCheckboxes.forEach(function (checkbox) {
-            checkbox.addEventListener('change', function () {
-                var selectedIds = [];
-                categoryCheckboxes.forEach(function (checkbox) {
-                    if (checkbox.checked) {
-                        selectedIds.push(checkbox.value);
-                    }
-                });
-                selectedCategoriesInput.value = JSON.stringify(selectedIds); // ارسال به صورت آرایه
-            });
+        container.addEventListener('change', function () {
+            const selectedIds = Array.from(container.querySelectorAll('.category-checkbox'))
+                .filter(cb => cb.checked)
+                .map(cb => cb.value);
+            selectedCategoriesInput.value = JSON.stringify(selectedIds);
         });
     });
 
     $(document).ready(function () {
         let editorInstance;
 
-        // بارگذاری CKEditor
-        ClassicEditor.create(document.querySelector('#content'), {
-            toolbar: ['heading', '|', 'bold', 'italic', 'link', '|', 'bulletedList', 'numberedList', '|', 'blockQuote'],
-            editable: {
-                width: '100%',
-                height: '300px'
-            }
-        }).then(editor => {
-            editorInstance = editor;
-        }).catch(error => {
+        ClassicEditor.create(document.querySelector('#content'))
+            .then(editor => {
+                editorInstance = editor;
+            })
+            .catch(error => {
             console.error(error);
         });
-
-        // ارسال فرم با استفاده از AJAX
         $("#submitButton").on("click", function (e) {
-            e.preventDefault();  // جلوگیری از ارسال پیش‌فرض فرم
+            e.preventDefault(); 
 
             var form = $("#blogForm")[0];
             var formData = new FormData(form);
-
-            // افزودن مقادیر CategoryIds به FormData
+            formData.set('Content', editorInstance.getData());
             var categoryIds = JSON.parse($("#selectedCategories").val());
             categoryIds.forEach(function (categoryId) {
-                formData.append('CategoryIds', parseInt(categoryId)); // تبدیل به عدد صحیح (long)
+                formData.append('CategoryIds', parseInt(categoryId));
             });
 
-            // ارسال داده‌ها به سرور
             $.ajax({
-                url: $(this).attr('action'), // مسیر درخواست
+                url: $(this).attr('action'),
                 type: 'POST',
                 data: formData,
                 processData: false,
@@ -175,7 +128,7 @@
                             title: 'Bloq əlavə olundu!',
                             text: response.message
                         }).then(() => {
-                            window.location.href = '/Admin/Blog/Index'; // هدایت به صفحه لیست بلاگ‌ها
+                            window.location.href = '/Admin/Blog/Index';
                         });
                     } else {
                         Swal.fire({
@@ -189,10 +142,32 @@
                     Swal.fire({
                         icon: 'error',
                         title: 'Xəta baş verdi!',
-                        text: 'Əməliyyat uğursuz oldu.' // پیام خطا در صورت بروز مشکل
+                        text: 'Əməliyyat uğursuz oldu.'
                     });
                 }
             });
         });
     });
+
+
+    function buildCategoryTree(categories) {
+        let treeHtml = '';
+        categories.forEach(function (category) {
+            treeHtml += `
+                <details>
+                    <summary>
+                        <label>
+                            <input type="checkbox" class="category-checkbox" value="${category.Id}" />
+                            ${category.Name}
+                        </label>
+                    </summary>`;
+            if (category.SubCategories && category.SubCategories.length > 0) {
+                treeHtml += `<div class="sub-category">`;
+                treeHtml += buildCategoryTree(category.SubCategories);
+                treeHtml += `</div>`;
+            }
+            treeHtml += `</details>`;
+        });
+        return treeHtml;
+    }
 </script>

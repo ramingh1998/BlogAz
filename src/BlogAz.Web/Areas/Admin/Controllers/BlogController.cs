@@ -66,6 +66,7 @@ namespace BlogAz.Web.Areas.Admin.Controllers
 
         public async Task<IActionResult> Edit(long id)
         {
+
             var blog = await _blogFacade.GetBlogByIdAsync(id);
             var model = new BlogViewModel
             {
@@ -75,12 +76,9 @@ namespace BlogAz.Web.Areas.Admin.Controllers
                 ImageName = blog.ImageName,
                 CategoryIds = blog.Categories.Select(c => c.Id).ToList()
             };
-            var categories = await _categoryFacade.GetCategoriesForComboBoxAsync();
-            ViewBag.CategoryList = categories.Select(c => new SelectListItem
-            {
-                Text = c.Name,
-                Value = c.Id.ToString()
-            }).ToList();
+            var categories = await _categoryFacade.GetAllCategoriesAsync();
+            var categoryTree = BuildCategoryTree(categories);
+            ViewBag.CategoryTreeJson = Newtonsoft.Json.JsonConvert.SerializeObject(categoryTree);
             return View(model);
         }
 

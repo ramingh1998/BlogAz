@@ -2,42 +2,65 @@
 @{
 	Layout = null;
 }
-<!DOCTYPE html>
-<html lang="fa">
+<!doctype html>
+<html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>
-		Admin panelinə giriş.
-	</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/admin/authentication/css/style.css">
+    <link rel="stylesheet" href="/admin/authentication/css/owl.carousel.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/admin/authentication/css/bootstrap.min.css">
+    <!-- Style -->
+    <link rel="stylesheet" href="/admin/authentication/css/style2.css">
+    <title>Login #8</title>
 </head>
 <body>
-	<div class="login-container">
-		<h2>Admin Panel Girişi</h2>
-		<form asp-area="Admin" asp-controller="Auth" asp-action="Login">
-
-			<div class="form-group">
-				<label for="UserName">İstifadəçi adı</label>
-				<input type="text" id="UserName" asp-for="UserName" class="input-field" />
-				<span class="text-danger">@Html.ValidationMessageFor(m => m.UserName)</span>
-			</div>
-
-			<div class="form-group">
-				<label for="Password">Şifrə</label>
-				<input type="password" id="Password" asp-for="Password" class="input-field" />
-				<span class="text-danger">@Html.ValidationMessageFor(m => m.Password)</span>
-			</div>
-			<div class="remember-me">
-				<label>
-					<input type="checkbox" asp-for="RememberMe"> Məni xatırla
-				</label>
-			</div>
-			<button type="submit" class="btn-login">Giriş</button>
-		</form>
-	</div>
-
-	<div class="footer">
-		<p>&copy; 2024 Admin Panel. Bütün hüquqlar qorunur.</p>
-	</div>
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 order-md-2">
+                    <img src="/admin/authentication/images/undraw_file_sync_ot38.svg" alt="Image" class="img-fluid">
+                </div>
+                <div class="col-md-6 contents">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="mb-4">
+                                <h3><strong>BlogAz</strong>-a xoş gəlmisiniz</h3>
+                                <p class="mb-4">Sayta daxil olmaq üçün istifadəçi adı və şifrəni daxil edin.</p>
+                            </div>
+                            <form method="post">
+                                <div class="form-group first">
+                                    <label>İstifadəçi adı</label>
+                                    <input type="text" class="form-control" asp-for="UserName">
+                                    <span class="text-danger" asp-validation-for="UserName"></span>
+                                </div>
+                                <div class="form-group last mb-4">
+                                    <label>Şifrə</label>
+                                    <input type="password" class="form-control" asp-for="Password">
+                                    <span class="text-danger" asp-validation-for="Password"></span>
+                                </div>
+                                <div class="d-flex mb-3">
+                                    <label class="control control--checkbox mb-0">
+                                        <span class="caption">Məni yadda saxla.</span>
+                                        <input type="checkbox" asp-for="RememberMe" />
+                                        <div class="control__indicator"></div>
+                                    </label>
+                                </div>
+                                <input type="submit" value="ورود" class="btn text-white btn-block btn-primary mt-3">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/admin/authentication/js/jquery-3.3.1.min.js"></script>
+    <script src="/admin/authentication/js/popper.min.js"></script>
+    <script src="/admin/authentication/js/bootstrap.min.js"></script>
+    <script src="/admin/authentication/js/main.js"></script>
+    <partial name="_ValidationScriptsPartial"></partial>
 </body>
 </html>
