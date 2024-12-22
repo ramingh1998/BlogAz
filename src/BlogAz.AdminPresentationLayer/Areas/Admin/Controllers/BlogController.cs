@@ -51,6 +51,7 @@ namespace BlogAz.AdminPresentationLayer.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(BlogViewModel model)
         {
+
             var result = await _blogFacade.AddBlogAsync(new AddBlogCommand
             {
                 Title = model.Title,
