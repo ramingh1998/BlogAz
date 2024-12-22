@@ -1,5 +1,40 @@
-﻿
+﻿@using System.Globalization
+@model BlogAz.Application.DTOs.Blogs.BlogFilterResult
 @{
 	ViewData["Title"] = "Ana səhifə";
 }
+<style>
+	.img-fluid {
+		width: 100% !important;
+		height: 200px !important;
+		object-fit: cover !important;
+	}
+</style>
 
+<div class="row mb-4">
+	<div class="col-sm-6">
+		<h2 class="posts-entry-title">Bloqlar</h2>
+	</div>
+	<div class="col-sm-6 text-sm-end">
+		<a href="/Blog/Index" class="read-more">
+			Hamısına bax
+		</a>
+	</div>
+</div>
+<div class="row">
+	@foreach (var item in Model.Data)
+	{
+		<div class="col-lg-4 mb-4">
+			<div class="post-entry-alt">
+				<a class="img-link"><img src="/@item.ImageName" alt="Image" class="img-fluid"></a>
+				<div class="excerpt">
+					<h2><a>@item.Title</a></h2>
+					<div class="post-meta align-items-center text-left clearfix">
+						<span>&nbsp;-&nbsp; @item.CreatedAt.ToString("dd MMMM yyyy", new CultureInfo("az-AZ"))</span>
+					</div>
+					<p><a href="/Blog/Details/@item.Id" class="read-more">Oxumağa davam et</a></p>
+				</div>
+			</div>
+		</div>
+	}
+</div>

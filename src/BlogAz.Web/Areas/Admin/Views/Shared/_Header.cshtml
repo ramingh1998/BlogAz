@@ -1,52 +1,29 @@
 ﻿<header uk-sticky>
-			<div class="header_inner">
-				<div class="left-side">
-
-					<!-- Logo -->
-					<div id="logo">
-						<a href="explore.html">
-							<img src="~/admin/assets/images/logo.png" alt="">
-							<img src="~/admin/assets/images/logo-light.png" class="logo_inverse" alt="">
-							<img src="~/admin/assets/images/logo-mobile.png" class="logo_mobile" alt="">
-						</a>
-					</div>
-
-					<!-- icon menu for mobile -->
-					<div class="triger" uk-toggle="target: #wrapper ; cls: is-active">
-					</div>
-
-				</div>
-				<div class="right-side">
-
-					<!-- Header search box  -->
-					<div class="header_search">
-						<i class="uil-search-alt"></i>
-						<input value="" type="text" class="form-control" placeholder=" Quick search for anything.." autocomplete="off">
-					</div>
-					<div>
-
-						<!-- cart -->
-						<a href="#" class="header_widgets">
-							<ion-icon name="cart-outline" class="is-icon"></ion-icon>
-						</a>
-						<!-- notification -->
-						<a href="#" class="header_widgets">
-							<ion-icon name="mail-outline" class="is-icon"></ion-icon>
-						</a>
-
-						<!-- messages -->
-						<a href="#" class="header_widgets">
-							<ion-icon name="notifications-outline" class="is-icon"></ion-icon>
-							<span> 2 </span>
-						</a>
-
-						<!-- profile -->
-						<a href="#">
-							<img src="~/admin/assets/images/avatars/placeholder.png" class="header_widgets_avatar" alt="">
-						</a>
-
-					</div>
-
-				</div>
+	<div class="header_inner">
+		<div class="left-side">
+			<div id="logo">
+				<a href="/Admin/Home/Index">
+					<img src="~/admin/assets/images/logo.png" alt="">
+					<img src="~/admin/assets/images/logo-light.png" class="logo_inverse" alt="">
+					<img src="~/admin/assets/images/logo-mobile.png" class="logo_mobile" alt="">
+				</a>
 			</div>
-		</header>
+			<div class="triger" uk-toggle="target: #wrapper ; cls: is-active">
+			</div>
+		</div>
+		<div class="right-side">
+			<div class="header_search">
+				<i class="uil-search-alt"></i>
+				<input value="" type="text" class="form-control" placeholder=" Quick search for anything.." autocomplete="off">
+			</div>
+			<div>
+				<a href="/Admin/Auth/LogOut" class="header_widgets">
+					Çıxış
+				</a>
+				<a href="#">
+					<img src="~/admin/assets/images/avatars/placeholder.png" class="header_widgets_avatar" alt="">
+				</a>
+			</div>
+		</div>
+	</div>
+</header>

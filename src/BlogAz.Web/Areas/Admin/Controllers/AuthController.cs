@@ -47,5 +47,11 @@ namespace BlogAz.Web.Areas.Admin.Controllers
             });
             return RedirectToAction("Index", "Home");
         }
+
+        public async Task<IActionResult> LogOut()
+        {
+            HttpContext.Response.Cookies.Delete("Token");
+            return RedirectToAction("Login");
+        }
     }
 }
