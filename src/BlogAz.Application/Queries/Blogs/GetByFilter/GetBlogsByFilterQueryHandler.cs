@@ -47,10 +47,10 @@ namespace BlogAz.Application.Queries.Blogs.GetByFilter
                     Title = q.Title,
                     Content = q.Content,
                     ImageName = $"Blog/Images/{q.ImageName}",
-                    Categories = categories.Where(q => q.BlogId == q.Id).Select(q => new CategoryDto
+                    Categories = categories.Where(c => c.BlogId == q.Id).Select(x => new CategoryDto
                     {
-                        Id = q.CategoryId,
-                        Name = q.Category.Name,
+                        Id = x.CategoryId,
+                        Name = x.Category.Name,
                     }).ToList()
                 }).ToList()
             };

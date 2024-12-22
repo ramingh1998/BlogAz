@@ -6,6 +6,7 @@ namespace BlogAz.Application.DTOs.Categories
     {
         public string Name { get; set; }
         public long? ParentId { get; set; }
+        public int BlogCount{ get; set; }
         public List<CategoryDto> SubCategories { get; set; } = new List<CategoryDto>();
     }
 }

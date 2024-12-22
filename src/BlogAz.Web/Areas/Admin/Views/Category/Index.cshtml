@@ -22,6 +22,7 @@
 			html.Append("<li class='category-item'>");
 			html.Append($"<div class='category-card'>");
 			html.Append($"<span class='category'>{category.Name}</span>");
+			html.Append($"<span class='category'>({category.BlogCount} Bloq)</span>");
 
 			html.Append("<div class='action-buttons'>");
 			html.Append($"<a href='javascript:void(0);' class='add-subcategory-btn btn-sm' data-id='{category.Id}' data-toggle='modal' data-target='#addSubCategoryModal'><i class='fas fa-plus'></i>Əlavə et</a>");
