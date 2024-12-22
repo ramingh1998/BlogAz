@@ -20,7 +20,7 @@ namespace BlogAz.Web.Controllers
         {
             var model = await _blogFacade.GetBlogsByFilterAsync(filterParams);
             ViewBag.FilterParams = filterParams;
-            ViewBag.Categories = await _categoryFacade.GetMainCategoriesAsync();
+            ViewBag.Categories = await _categoryFacade.GetCategoriesForComboBoxAsync();
             return View(model);
         }
 
