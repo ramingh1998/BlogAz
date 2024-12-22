@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace BlogAz.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class BlogController : Controller
     {
         private readonly IBlogFacade _blogFacade;

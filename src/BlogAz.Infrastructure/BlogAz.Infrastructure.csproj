@@ -21,6 +21,7 @@
 
 	<ItemGroup>
 	  <Folder Include="EntityConfigurations\Admins\" />
+	  <Folder Include="Repositories\Admins\" />
 	</ItemGroup>
 
 </Project>

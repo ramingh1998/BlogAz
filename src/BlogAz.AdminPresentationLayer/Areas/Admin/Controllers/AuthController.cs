@@ -1,5 +1,5 @@
 ﻿using BlogAz.AdminPresentationLayer.Areas.Admin.ViewModels.Auth;
-using BlogAz.Domain.Interfaces.Admins;
+using BlogAz.Domain.Interfaces.Users;
 using Common.Application.SecurityUtil;
 using DigiLearn.AdminPresentationLayer.Infrastructure.JwtUtil;
 using Microsoft.AspNetCore.Mvc;
@@ -9,12 +9,12 @@ namespace BlogAz.AdminPresentationLayer.Areas.Admin.Controllers
     [Area("Admin")]
     public class AuthController : Controller
     {
-        private readonly IAdminRepository _adminRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IConfiguration _configuration;
 
-        public AuthController(IAdminRepository adminRepository, IConfiguration configuration)
+        public AuthController(IUserRepository userRepository, IConfiguration configuration)
         {
-            _adminRepository = adminRepository;
+            _userRepository = userRepository;
             _configuration = configuration;
         }
 
@@ -26,19 +26,19 @@ namespace BlogAz.AdminPresentationLayer.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            var admin = await _adminRepository.GetAdminByUserNameAsync(model.UserName);
-            if (admin == null)
+            var user = await _userRepository.GetUserByUserNameAsync(model.UserName);
+            if (user == null)
             {
                 ModelState.AddModelError("UserName", "İstifadəçi adı və ya şifrə yanlışdır.");
                 return View(model);
             }
-            var verifyPassword = Sha256Hasher.IsCompare(admin.Password, model.Password);
+            var verifyPassword = Sha256Hasher.IsCompare(user.Password, model.Password);
             if (!verifyPassword)
             {
                 ModelState.AddModelError("UserName", "İstifadəçi tapılmadı.");
                 return View(model);
             }
-            var token = JwtTokenBuilder.BuildToken(admin, _configuration);
+            var token = JwtTokenBuilder.BuildToken(user, _configuration);
             HttpContext.Response.Cookies.Append("Token", token, new CookieOptions
             {
                 HttpOnly = true,

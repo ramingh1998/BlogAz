@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BlogAz.Domain.Entities.Admins;
-using BlogAz.Domain.Entities.Blogs;
+﻿using BlogAz.Domain.Entities.Blogs;
 using BlogAz.Domain.Entities.Categories;
+using BlogAz.Domain.Entities.Roles;
 using BlogAz.Domain.Entities.Users;
 using Common.Infrastructure;
 using MediatR;
@@ -19,11 +14,11 @@ namespace BlogAz.Infrastructure.Persistence
         {
         }
 
-        public DbSet<Admin> Admins { get; set; }
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<BlogCategory> BlogCategories { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

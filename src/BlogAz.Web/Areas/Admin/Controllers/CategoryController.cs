@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BlogAz.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class CategoryController : Controller
     {
         private readonly ICategoryFacade _categoryFacade;

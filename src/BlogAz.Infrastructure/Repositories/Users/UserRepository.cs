@@ -21,5 +21,15 @@ namespace BlogAz.Infrastructure.Repositories.Users
             }
             return user;
         }
+
+        public async Task<User?> GetUserByUserNameAsync(string userName)
+        {
+            var user = await Context.Users.Include(q => q.Role).FirstOrDefaultAsync(x => x.UserName == userName);
+            if (user == null)
+            {
+                return null;
+            }
+            return user;
+        }
     }
 }
