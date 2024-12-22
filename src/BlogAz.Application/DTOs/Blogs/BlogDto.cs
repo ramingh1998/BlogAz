@@ -5,7 +5,6 @@ namespace BlogAz.Application.DTOs.Blogs
 {
     public class BlogDto : BaseDto
     {
-        public long Id { get; set; }
         public string Title { get; set; }
         public string ImageName { get; set; }
         public string Content { get; set; }

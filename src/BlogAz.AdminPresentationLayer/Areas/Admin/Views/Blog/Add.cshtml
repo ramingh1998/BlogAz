@@ -1,4 +1,5 @@
 ﻿@model BlogAz.AdminPresentationLayer.Areas.Admin.ViewModels.Blogs.BlogViewModel
+
 @{
 	ViewData["Title"] = "Blog Əlavə et";
 	ViewBag.Selected = "Blogs";
@@ -9,6 +10,15 @@
 	<link rel="stylesheet" href="~/admin/assets/global/blogStyle.css" asp-append-version="true" />
 }
 
+<style>
+	.category-item {
+		margin-left: 20px;
+	}
+
+	.subcategory-container {
+		margin-left: 20px;
+	}
+</style>
 
 <div class="card">
 	<div class="card-header">
@@ -39,9 +49,10 @@
 			</div>
 			<div class="form-group">
 				<label for="categories">🏷️ Kateqoriyalar</label>
-				<select id="categories" name="CategoryIds" asp-for="CategoryIds" asp-items="ViewBag.CategoryList" class="form-control" multiple>
-				</select>
-				<small class="form-text">Bir neçə kateqoriya seçmək üçün klik edin və ya axtarın.</small>
+				<div id="categoryTree">
+				</div>
+				<input type="hidden" id="selectedCategories" name="CategoryIds" />
+				<small class="form-text">Bir neçə kateqoriya seçmək üçün qutuları qeyd edin.</small>
 				<span class="text-danger" asp-validation-for="CategoryIds"></span>
 			</div>
 
@@ -72,6 +83,36 @@
 	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 }
 <script type="text/javascript">
+	var categoryTreeJson = @Html.Raw(ViewBag.CategoryTreeJson);
+
+		function buildCategoryTree(categories, parentElement) {
+			categories.forEach(function (category) {
+				var container = $('<div></div>').addClass('category-item');
+				var checkbox = $('<input>')
+					.attr('type', 'checkbox')
+					.attr('value', category.Id)
+					.addClass('category-checkbox');
+				var label = $('<label></label>').text(category.Name);
+
+				container.append(checkbox).append(label);
+				parentElement.append(container);
+
+				if (category.SubCategories && category.SubCategories.length > 0) {
+					var subCategoryContainer = $('<div></div>').addClass('subcategory-container');
+					container.append(subCategoryContainer);
+					buildCategoryTree(category.SubCategories, subCategoryContainer);
+				}
+			});
+		}
+
+		function updateSelectedCategories() {
+			var selectedIds = [];
+			$('#categoryTree .category-checkbox:checked').each(function () {
+				selectedIds.push($(this).val());
+			});
+			$('#selectedCategories').val(selectedIds.join(','));
+	}
+
 	function previewImage(input) {
 		const preview = document.getElementById('imagePreview');
 		if (input.files && input.files[0]) {
@@ -85,11 +126,11 @@
 		}
 	}
 	$(document).ready(function () {
-		$('#categories').select2({
-				  placeholder: "Kateqoriyalarınızı seçin",
-				  allowClear: true,
-				  width: '100%'
-		});
+		var categoryTreeContainer = $('#categoryTree');
+		buildCategoryTree(categoryTreeJson, categoryTreeContainer);
+
+		// Check-box dəyişikliklərinə qulaq as
+		$('#categoryTree').on('change', '.category-checkbox', updateSelectedCategories);
 
 		$("#submitButton").on("click", function (e) {
 			e.preventDefault();

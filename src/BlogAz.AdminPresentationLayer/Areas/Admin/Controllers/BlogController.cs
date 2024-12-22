@@ -3,6 +3,8 @@ using BlogAz.Application.Commands.Blogs.Add;
 using BlogAz.Application.Commands.Blogs.Delete;
 using BlogAz.Application.Commands.Blogs.Edit;
 using BlogAz.Application.DTOs.Blogs;
+using BlogAz.Application.DTOs.Categories;
+using BlogAz.Domain.Entities.Categories;
 using BlogAz.Facade.Blogs;
 using BlogAz.Facade.Categories;
 using Common.Application;
@@ -40,12 +42,9 @@ namespace BlogAz.AdminPresentationLayer.Areas.Admin.Controllers
 
         public async Task<IActionResult> Add()
         {
-            var categories = await _categoryFacade.GetCategoriesForComboBoxAsync();
-            ViewBag.CategoryList = categories.Select(c => new SelectListItem
-            {
-                Text = c.Name,
-                Value = c.Id.ToString()
-            }).ToList();
+            var categories = await _categoryFacade.GetAllCategoriesAsync();
+            var categoryTree = BuildCategoryTree(categories);
+            ViewBag.CategoryTreeJson = Newtonsoft.Json.JsonConvert.SerializeObject(categoryTree);
             return View();
         }
 
@@ -99,7 +98,7 @@ namespace BlogAz.AdminPresentationLayer.Areas.Admin.Controllers
         public async Task<IActionResult> Details(long id)
         {
             var blog = await _blogFacade.GetBlogByIdAsync(id);
-            return View();
+            return View(blog);
         }
 
         [HttpPost]
@@ -107,6 +106,18 @@ namespace BlogAz.AdminPresentationLayer.Areas.Admin.Controllers
         {
             var result = await _blogFacade.DeleteBlogAsync(new DeleteBlogCommand(id));
             return new JsonResult(result);
+        }
+
+        private List<CategoryDto> BuildCategoryTree(List<CategoryDto> categories)
+        {
+            var categoryTree = categories.Where(c => c.ParentId == null).Select(c => new CategoryDto
+            {
+                Id = c.Id,
+                Name = c.Name,
+                SubCategories = c.SubCategories
+            }).ToList();
+
+            return categoryTree;
         }
     }
 }
