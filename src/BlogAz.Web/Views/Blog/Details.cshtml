@@ -1,0 +1,42 @@
+﻿@using System.Globalization
+@model BlogAz.Application.DTOs.Blogs.BlogDto
+@{
+	ViewData["Title"] = "Bloglar";
+}
+<section class="section">
+	<div class="container">
+
+		<div class="row blog-entries element-animate">
+
+			<div class="col-md-12 col-lg-8 main-content">
+
+				<div class="post-content-body">
+					<div class="row my-4">
+						<div class="col-md-12 mb-4">
+							<img src="~/Blog/Images/@Model.ImageName" alt="@Model.Title" class="img-fluid rounded">
+						</div>
+					</div>
+					<p>@Html.Raw(Model.Content)</p>
+				</div>
+			</div>
+			<div class="col-md-12 col-lg-4 sidebar">
+				<div class="sidebar-box">
+					<div class="bio text-center">
+						<div class="bio-body">
+							<h4 class="mb-4">@Model.CreatedAt.ToString("dd MMMM yyyy", new CultureInfo("az-AZ"))</h4>
+						</div>
+					</div>
+				</div>
+				<div class="sidebar-box">
+					<h3 class="heading">Kateqoriyalar</h3>
+					<ul class="tags">
+						@foreach (var item in Model.Categories)
+						{
+							<li><a href="#">@item.Name</a></li>
+						}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

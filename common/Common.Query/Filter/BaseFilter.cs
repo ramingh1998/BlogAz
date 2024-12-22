@@ -43,7 +43,7 @@ public class BaseFilter
 public class BaseFilterParam
 {
     public int PageId { get; set; } = 1;
-    public int Take { get; set; } = 6;
+    public int Take { get; set; } = 8;
 }
 
 public class BaseFilter<TData> : BaseFilter

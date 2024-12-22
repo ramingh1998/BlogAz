@@ -1,49 +1,144 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - BlogAz.Web</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/BlogAz.Web.styles.css" asp-append-version="true" />
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="Untree.co">
+	<link rel="shortcut icon" href="favicon.png">
+
+	<meta name="description" content="" />
+	<meta name="keywords" content="bootstrap, bootstrap5" />
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+
+	<link rel="stylesheet" href="~/web/fonts/icomoon/style.css">
+	<link rel="stylesheet" href="~/web/fonts/flaticon/font/flaticon.css">
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+	<link rel="stylesheet" href="~/web/css/tiny-slider.css">
+	<link rel="stylesheet" href="~/web/css/aos.css">
+	<link rel="stylesheet" href="~/web/css/glightbox.min.css">
+	<link rel="stylesheet" href="~/web/css/style.css">
+
+	<link rel="stylesheet" href="~/web/css/flatpickr.min.css">
+
+
+	<title>@ViewData["Title"]</title>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BlogAz.Web</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+	<div class="site-mobile-menu site-navbar-target">
+		<div class="site-mobile-menu-header">
+			<div class="site-mobile-menu-close">
+				<span class="icofont-close js-menu-toggle"></span>
+			</div>
+		</div>
+		<div class="site-mobile-menu-body"></div>
+	</div>
+	<partial name="_Navbar"></partial>
+	<!-- Start posts-entry -->
+	<section class="section posts-entry posts-entry-sm bg-light">
+		<div class="container">
+			@RenderBody()
+		</div>
+	</section>
+	<!-- End posts-entry -->
+	<footer class="site-footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4">
+					<div class="widget">
+						<h3 class="mb-4">Haqqında</h3>
+						<p>Çox uzaqlarda, söz dağlarının arxasında, Vokaliya və Konsonantiya ölkələrindən uzaqda, kor mətnlər yaşayır.</p>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - BlogAz.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+					</div>
+					<div class="widget">
+						<h3>Social</h3>
+						<ul class="list-unstyled social">
+							<li><a href="#"><span class="icon-instagram"></span></a></li>
+							<li><a href="#"><span class="icon-twitter"></span></a></li>
+							<li><a href="#"><span class="icon-facebook"></span></a></li>
+							<li><a href="#"><span class="icon-linkedin"></span></a></li>
+							<li><a href="#"><span class="icon-pinterest"></span></a></li>
+							<li><a href="#"><span class="icon-dribbble"></span></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-4 ps-lg-5">
+					<div class="widget">
+						<h3 class="mb-4">Şirkət</h3>
+						<ul class="list-unstyled float-start links">
+							<li><a href="#">Haqqımızda</a></li>
+							<li><a href="#">Xidmətlər</a></li>
+							<li><a href="#">Baxış</a></li>
+						</ul>
+						<ul class="list-unstyled float-start links">
+							<li><a href="#">Tərəfdaşlar</a></li>
+							<li><a href="#">Biznes</a></li>
+							<li><a href="#">Karyera</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="col-lg-4">
+					<div class="widget">
+						<h3 class="mb-4">Son Paylaşım Yazısı</h3>
+						<div class="post-entry-footer">
+							<ul>
+								<li>
+									<a href="">
+										<img src="~/web/images/img_1_sq.jpg" alt="Şəkil yer tutucu" class="me-4 rounded">
+										<div class="text">
+											<h4>Kişilər üçün Corab və Səndəl Geyinməyin Yeni və Maraqlı Bir Yolu</h4>
+											<div class="post-meta">
+												<span class="mr-2">15 Mart 2018</span>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li>
+									<a href="">
+										<img src="~/web/images/img_2_sq.jpg" alt="Şəkil yer tutucu" class="me-4 rounded">
+										<div class="text">
+											<h4>Kişilər üçün Corab və Səndəl Geyinməyin Yeni və Maraqlı Bir Yolu</h4>
+											<div class="post-meta">
+												<span class="mr-2">15 Mart 2018</span>
+											</div>
+										</div>
+									</a>
+								</li>
+							</ul>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> <!-- /.container -->
+	</footer> <!-- /.site-footer -->
+	<!-- Preloader -->
+	<div id="overlayer"></div>
+	<div class="loader">
+		<div class="spinner-border text-primary" role="status">
+			<span class="visually-hidden">Loading...</span>
+		</div>
+	</div>
+
+
+	<script src="~/web/js/bootstrap.bundle.min.js"></script>
+	<script src="~/web/js/tiny-slider.js"></script>
+
+	<script src="~/web/js/flatpickr.min.js"></script>
+
+
+	<script src="~/web/js/aos.js"></script>
+	<script src="~/web/js/glightbox.min.js"></script>
+	<script src="~/web/js/navbar.js"></script>
+	<script src="~/web/js/counter.js"></script>
+	<script src="~/web/js/custom.js"></script>
+	@await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>
