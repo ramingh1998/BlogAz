@@ -15,7 +15,7 @@
 
             if (context.Response.StatusCode == 401)
             {
-                context.Response.Redirect("/Authentication/Login");
+                context.Response.Redirect("/admin/auth/login");
             }
         }
     }

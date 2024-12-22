@@ -1,7 +1,9 @@
-﻿using BlogAz.Domain.Interfaces.Blogs;
+﻿using BlogAz.Domain.Interfaces.Admins;
+using BlogAz.Domain.Interfaces.Blogs;
 using BlogAz.Domain.Interfaces.Categories;
 using BlogAz.Domain.Interfaces.Users;
 using BlogAz.Infrastructure.Persistence;
+using BlogAz.Infrastructure.Repositories.Admins;
 using BlogAz.Infrastructure.Repositories.Blogs;
 using BlogAz.Infrastructure.Repositories.Categories;
 using BlogAz.Infrastructure.Repositories.Users;
@@ -16,6 +18,7 @@ namespace BlogAz.Infrastructure
     {
         public static IServiceCollection InitInfrastructureDependencies(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddTransient<IAdminRepository, AdminRepository>();
             services.AddTransient<IBlogRepository, BlogRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IBlogCategoryRepository, BlogCategoryRepository>();

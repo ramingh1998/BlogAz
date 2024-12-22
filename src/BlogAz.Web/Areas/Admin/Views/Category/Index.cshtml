@@ -1,0 +1,91 @@
+﻿@using BlogAz.Application.DTOs.Categories
+@using Microsoft.AspNetCore.Html
+@model List<CategoryDto>
+@{
+	ViewBag.Title = "Kategoriyalar";
+	ViewBag.Selected = "Categories";
+}
+@section Styles {
+	<link rel="stylesheet" href="~/admin/assets/global/categoryStyle.css">
+}
+<button class="btn btn-success" data-bs-toggle="modal" data-toggle='modal' data-target='#addSubCategoryModal'>Kateqoriya əlavə et</button>
+<div class="md:p-7 p-5 bg-white rounded-md shadow-lg lg:mt-10 mt-6">
+	@RenderCategories(Model)
+</div>
+
+@functions {
+	IHtmlContent RenderCategories(List<CategoryDto> categories)
+	{
+		var html = new System.Text.StringBuilder();
+		foreach (var category in categories)
+		{
+			html.Append("<li class='category-item'>");
+			html.Append($"<div class='category-card'>");
+			html.Append($"<span class='category'>{category.Name}</span>");
+
+			html.Append("<div class='action-buttons'>");
+			html.Append($"<a href='javascript:void(0);' class='add-subcategory-btn btn-sm' data-id='{category.Id}' data-toggle='modal' data-target='#addSubCategoryModal'><i class='fas fa-plus'></i>Əlavə et</a>");
+			html.Append($"<a href='/Admin/Category/Edit/{category.Id}' class='edit-btn btn-sm'><i class='fas fa-edit'></i>Düzəliş et</a>");
+			html.Append("<button class='delete-btn btn-sm' data-id='" + category.Id + "' onClick='deleteCategory(" + category.Id + ")'><i class='fas fa-trash'></i>Sil</button>");
+			html.Append("</div>");
+
+			html.Append("</div>");
+
+			if (category.SubCategories != null && category.SubCategories.Any())
+			{
+				html.Append("<ul class='subcategories'>");
+				html.Append(RenderCategories(category.SubCategories));
+				html.Append("</ul>");
+			}
+
+			html.Append("</li>");
+		}
+		return new HtmlString(html.ToString());
+	}
+}
+<!-- Modal for adding subcategory -->
+<div class="modal fade" id="addSubCategoryModal" tabindex="-1" aria-labelledby="addSubCategoryModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="addSubCategoryModalLabel">Alt kateqoriya əlavə et</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="subcategoryTitle">Alt kateqoriya başlığı</label>
+					<input type="text" class="form-control" id="subcategoryTitle" placeholder="Alt kateqoriya başlığını daxil edin">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" id="saveSubCategoryBtn">Yadda saxla</button>
+				<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">Bağla</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="edit" tabindex="-1" aria-labelledby="editCategory" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Kateqoriyaya Düzəliş et</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-warning" id="editCategory">Düzəliş et</button>
+				<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">Bağla</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	<script src="~/admin/assets/global/global.js"></script>
+}
+<script type="text/javascript">
+
+
+</script>

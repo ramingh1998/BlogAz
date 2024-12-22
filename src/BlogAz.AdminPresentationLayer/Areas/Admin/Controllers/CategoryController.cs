@@ -3,11 +3,13 @@ using BlogAz.Application.Commands.Categories.Delete;
 using BlogAz.Application.Commands.Categories.Edit;
 using BlogAz.Application.DTOs.Categories;
 using BlogAz.Facade.Categories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogAz.AdminPresentationLayer.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class CategoryController : Controller
     {
         private readonly ICategoryFacade _categoryFacade;

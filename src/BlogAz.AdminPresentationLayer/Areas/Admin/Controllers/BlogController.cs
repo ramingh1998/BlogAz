@@ -8,12 +8,14 @@ using BlogAz.Domain.Entities.Categories;
 using BlogAz.Facade.Blogs;
 using BlogAz.Facade.Categories;
 using Common.Application;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BlogAz.AdminPresentationLayer.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class BlogController : Controller
     {
         private readonly IBlogFacade _blogFacade;

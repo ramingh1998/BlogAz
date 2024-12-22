@@ -21,7 +21,15 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
+app.Use(async (context, next) =>
+{
+    var token = context.Request.Cookies["Token"]?.ToString();
+    if (!string.IsNullOrEmpty(token))
+    {
+        context.Request.Headers.Append("Authorization", $"Bearer {token}");
+    }
+    await next();
+});
 app.UseMiddleware<RedirectToLoginMiddleware>();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
